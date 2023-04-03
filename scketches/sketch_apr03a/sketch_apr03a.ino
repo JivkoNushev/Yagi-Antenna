@@ -4,20 +4,21 @@
 //JOYSTICK:
 #define VRX_PIN  A0 // Arduino pin connected to VRX pin
 #define VRY_PIN  A1 // Arduino pin connected to VRY pin
+int xValue; // variable to store the value coming from the VRx
+int yValue; // variable to store the value coming from the VRy
 
 //STEPPER:
 int oneway;
 int onerev = 6400;
-int microSecDelay = 3000;
+int microSecDelay = 300;
 int dirPin = 5;
 int stepPin = 7;
 
 //RELAY:
 int RelayPin = 6;
-
+int RelayOn = 0;
 
 void setup() {
-    Serial.begin(9600);
 //STEPPER:
     pinMode(dirPin, OUTPUT);
     pinMode(stepPin, OUTPUT);
@@ -27,7 +28,7 @@ void setup() {
 
 //RELAY:
     pinMode(RelayPin, OUTPUT);
-    digitalWrite(RelayPin, HIGH);
+    digitalWrite(RelayPin, LOW);
 }
 
 void loop() {
@@ -41,21 +42,39 @@ void loop() {
     Serial.print(", y = ");
     Serial.println(yValue);
 
-    if (oneway < onerev + 1)            // Still in first revolution?
-    {
-      digitalWrite(dirPin, LOW);      // Keep direction pin low
+    if(xValue > 510 || xValue < 490){
+
+      if(RelayOn == 0)
+      {
+        digitalWrite(RelayPin, HIGH);
+        RelayOn = 1;
+      }
+      
+      if(xValue > 510){        
+          digitalWrite(dirPin, LOW);
+          digitalWrite(stepPin, HIGH);       // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+          digitalWrite(stepPin, LOW);        // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+          
+      }
+      else if(xValue<490){
+          digitalWrite(dirPin, HIGH);
+          digitalWrite(stepPin, HIGH);       // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+          digitalWrite(stepPin, LOW);        // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+      }       
     }
     else
     {
-      digitalWrite(dirPin, HIGH);    // If not in first revolution change 
+      if(RelayOn == 1)
+      {
+        digitalWrite(RelayPin, LOW);
+        RelayOn = 0;
+      }
     }
-
-    digitalWrite(stepPin, HIGH);       // Step motor
-    delayMicroseconds(microSecDelay);  // Wait microseconds
-    digitalWrite(stepPin, LOW);        // Step motor
-    delayMicroseconds(microSecDelay);  // Wait microseconds
     
-    oneway += 1;                       // Increment direction counter
-    if (oneway > onerev * 2)           // If we have exceeded two revolutions
-        { oneway = 1; }                  // Reset counter to start over again
+    
+    
 }
