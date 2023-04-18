@@ -32,6 +32,7 @@ void loop() {
     }
   else
     {
+        
       digitalWrite(dirPin1, HIGH);    // If not in first revolution change 
 //                                        direction pin to High
     }
