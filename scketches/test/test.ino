@@ -16,23 +16,23 @@ int onerev = 6400;               // number of steps each direction (edit this
 int microSecDelay = 30;          // delay between steps and speed of the motor 
 //                                    (about as fast as the system can react,
 //                                    higher number = slower)
-int dirPin = 6;                  // output pin for stepper motor direction
+int dirPin1 = 6;                  // output pin for stepper motor direction
 int stepPin = 7;                 // output pin for the pin used to step the motor
 void setup() {                
-  pinMode(dirPin, OUTPUT);       // Assign output mode to pin for direction
+  pinMode(dirPin1, OUTPUT);       // Assign output mode to pin for direction
   pinMode(stepPin, OUTPUT);      // Assign output mode to pin for setp
-  digitalWrite(dirPin, LOW);     // Initialize dir pin 
+  digitalWrite(dirPin1, LOW);     // Initialize dir pin 
   digitalWrite(stepPin, LOW);    // Initialize step pin
   oneway = 1;
 }
 void loop() {
   if (oneway < onerev + 1)            // Still in first revolution?
     {
-      digitalWrite(dirPin, LOW);      // Keep direction pin low
+      digitalWrite(dirPin1, LOW);      // Keep direction pin low
     }
   else
     {
-      digitalWrite(dirPin, HIGH);    // If not in first revolution change 
+      digitalWrite(dirPin1, HIGH);    // If not in first revolution change 
 //                                        direction pin to High
     }
   digitalWrite(stepPin, HIGH);       // Step motor
