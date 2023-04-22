@@ -7,9 +7,9 @@ int xValue;        // variable to store the value coming from the VRx
 int yValue;        // variable to store the value coming from the VRyg
 
 // STEPPER:
-int microSecDelay = 300;
-int onerev = 6400; // our motor is 200 steps (1.8 degrees per step)
+int microSecDelay = 700;
 int oneway1, oneway2; // used to keep track of how much the motor has turned
+int steps1, steps2;
 int dirPin1 = 5, stepPin1 = 7; // motor1
 int dirPin2 = 3, stepPin2 = 4; // motor2
 
@@ -26,6 +26,7 @@ void setup()
     pinMode(stepPin1, OUTPUT);
     digitalWrite(dirPin1, LOW);
     digitalWrite(stepPin1, LOW);
+    steps1 = 0
     oneway1 = 1;
 
     pinMode(dirPin2, OUTPUT);
@@ -51,19 +52,31 @@ void loop()
     Serial.print(", y = ");
     Serial.println(yValue);
 
-    if(xValue > 600){        
-        digitalWrite(dirPin1, LOW);
-        digitalWrite(stepPin1, HIGH);       // Step motor
-        delayMicroseconds(microSecDelay);  // Wait microseconds
-        digitalWrite(stepPin1, LOW);        // Step motor
-        delayMicroseconds(microSecDelay);  // Wait microseconds
+    if(xValue > 600){
+        steps1++;
+        if(steps1>=200){
+          steps1 = 200
+        }
+        else{
+          digitalWrite(dirPin1, LOW);
+          digitalWrite(stepPin1, HIGH);       // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+          digitalWrite(stepPin1, LOW);        // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+        }
         
     }
     else if(xValue<300){
-        digitalWrite(dirPin1, HIGH);
-        digitalWrite(stepPin1, HIGH);       // Step motor
-        delayMicroseconds(microSecDelay);  // Wait microseconds
-        digitalWrite(stepPin1, LOW);        // Step motor
-        delayMicroseconds(microSecDelay);  // Wait microseconds
+        steps1--;
+        if(steps1<=0){
+          steps1 = 0
+        }
+        else{
+          digitalWrite(dirPin1, HIGH);
+          digitalWrite(stepPin1, HIGH);       // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+          digitalWrite(stepPin1, LOW);        // Step motor
+          delayMicroseconds(microSecDelay);  // Wait microseconds
+        }
     }
 }

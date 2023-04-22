@@ -7,7 +7,7 @@ int xValue;        // variable to store the value coming from the VRx
 int yValue;        // variable to store the value coming from the VRyg
 
 // STEPPER:
-int microSecDelay = 300;
+int microSecDelay1 = 300, microSecDelay2 = 700;
 int onerev = 6400; // our motor is 200 steps (1.8 degrees per step)
 int oneway1, oneway2; // used to keep track of how much the motor has turned
 int dirPin1 = 5, stepPin1 = 7; // motor1
@@ -35,7 +35,7 @@ void setup()
 
     // RELAY:
     pinMode(RelayPin, OUTPUT);
-    digitalWrite(RelayPin, LOW);
+    digitalWrite(RelayPin, HIGH);
 }
 
 void loop()
@@ -56,40 +56,39 @@ void loop()
         // ~adjust potentiometer on driver for the current limit so it doesn't overheat
 
     // SOFTWARE:
-    // !fix so it works with joystick
     // ~use the library Stepper.h
     
     if (xValue > 600)
     {
         digitalWrite(dirPin1, LOW);
         digitalWrite(stepPin1, HIGH);     // Step motor
-        delayMicroseconds(microSecDelay); // Wait microseconds
+        delayMicroseconds(microSecDelay1); // Wait microseconds
         digitalWrite(stepPin1, LOW);      // Step motor
-        delayMicroseconds(microSecDelay); // Wait microseconds
+        delayMicroseconds(microSecDelay1); // Wait microseconds
     }
     else if (xValue < 300)
     {
         digitalWrite(dirPin1, HIGH);
         digitalWrite(stepPin1, HIGH);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay1);
         digitalWrite(stepPin1, LOW);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay1);
     }
 
     if (yValue > 600)
     {
         digitalWrite(dirPin2, LOW);
         digitalWrite(stepPin2, HIGH);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay2);
         digitalWrite(stepPin2, LOW);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay2);
     }
     else if (yValue < 300)
     {
         digitalWrite(dirPin2, HIGH);
         digitalWrite(stepPin2, HIGH);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay2);
         digitalWrite(stepPin2, LOW);
-        delayMicroseconds(microSecDelay);
+        delayMicroseconds(microSecDelay2);
     }
 }
