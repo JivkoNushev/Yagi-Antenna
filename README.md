@@ -10,9 +10,5 @@
 - 2x [Драйвер за стъпков мотор](https://elimex.bg/product/82646-lit-k2197-driver-za-stapkov-motor-s-ic-a3967slbt)
 - [Джойстик](https://elimex.bg/product/74876-kit-k2125-modul-ps2-dzhoystik-za-avrpic-i-dr)
 
-
-![Screenshot from 2023-04-22 03-47-39](https://user-images.githubusercontent.com/54147006/233754228-2072b1fe-b3f0-43e6-9734-518185917dcf.png)
-
-
 ## Ресурси
 couplers from: https://www.thingiverse.com/thing:2956356
