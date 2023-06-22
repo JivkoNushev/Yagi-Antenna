@@ -1,6 +1,8 @@
 # Насочваща се антена
 Проект на Йоан и Живко от 11в клас по ВМКС 2022/2023
 
+[Документация](https://docs.google.com/document/d/1H8JA3U-Lvp6nKhMtDADn5f0bihCAqSqjBm5li3ldVWE/edit)
+
 ## Части
 - [Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3)
 - [12V акумулатор](https://elimex.bg/product/31382-akumulator-12v-1.4ah-lava)
